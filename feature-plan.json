@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "current_feature": "core-pdf-parsing",
+  "features": [
+    {
+      "id": "core-pdf-parsing",
+      "title": "Core PDF Parsing and TOC Detection",
+      "status": "done",
+      "acceptance": [
+        "Parse PDF and extract text content per page",
+        "Detect table of contents pages",
+        "Extract TOC structure with page numbers"
+      ],
+      "implementation": [
+        "pageindex/pdf_parser.py",
+        "pageindex/toc_detector.py"
+      ],
+      "tests": [
+        "tests/test_pdf_parser.py",
+        "tests/test_utils.py"
+      ]
+    },
+    {
+      "id": "tree-building",
+      "title": "Hierarchical Tree Building from Flat Structure",
+      "status": "done",
+      "acceptance": [
+        "Convert flat TOC entries to hierarchical tree",
+        "Clean leaf nodes (remove empty nodes key)",
+        "Fix get_leaf_nodes KeyError bug (Issue #330)"
+      ],
+      "implementation": [
+        "pageindex/utils.py"
+      ],
+      "tests": [
+        "tests/test_utils.py"
+      ]
+    },
+    {
+      "id": "page-index-builder",
+      "title": "Page Index Builder Pipeline",
+      "status": "planned",
+      "acceptance": [
+        "Build complete page index from PDF",
+        "Handle page offsets correctly (fix Issue #153)",
+        "Generate document structure with summaries"
+      ],
+      "implementation": [
+        "pageindex/page_index.py"
+      ],
+      "tests": [
+        "tests/test_page_index.py"
+      ]
+    },
+    {
+      "id": "agent-tools",
+      "title": "Agent Tools for Document Browsing",
+      "status": "planned",
+      "acceptance": [
+        "Implement browse_documents, get_document, get_document_structure, get_page_content",
+        "Support MCP tool specs"
+      ],
+      "implementation": [
+        "pageindex/agent_tools.py"
+      ],
+      "tests": [
+        "tests/test_agent_tools.py"
+      ]
+    },
+    {
+      "id": "local-chat",
+      "title": "Local Chat with Usage Tracking",
+      "status": "planned",
+      "acceptance": [
+        "Chat completions and responses protocol support",
+        "Per-call usage tracking with completeness (Issue #557)",
+        "Streaming and non-streaming support"
+      ],
+      "implementation": [
+        "pageindex/local_chat.py"
+      ],
+      "tests": [
+        "tests/test_local_chat.py"
+      ]
+    },
+    {
+      "id": "mcp-server",
+      "title": "Standalone MCP Server",
+      "status": "planned",
+      "acceptance": [
+        "stdio transport MCP server",
+        "pageindex-mcp console entry point",
+        "Connects to local PageIndexClient"
+      ],
+      "implementation": [
+        "pageindex/mcp_server.py"
+      ],
+      "tests": [
+        "tests/test_mcp_server.py"
+      ]
+    }
+  ]
+}
