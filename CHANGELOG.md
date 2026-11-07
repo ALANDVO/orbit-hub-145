@@ -41,3 +41,7 @@ Partial code published for continued development. Known issues: STATUS.md.
 ### Updated
 - README with MCP server usage documentation and client configuration examples
 - Project structure documentation
+
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)

@@ -52,3 +52,6 @@ Acceptance:
 - Preserve individual model-call records with call identity
 - Distinguish complete, partial and unknown measurements
 
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)
