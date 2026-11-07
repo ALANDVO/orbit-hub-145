@@ -1,13 +1,60 @@
 {
   "schema_version": 1,
-  "current_feature": "continue-implementation",
+  "current_feature": "mcp-server",
   "features": [
     {
-      "id": "continue-implementation",
-      "title": "Continue implementation and resolve known failures",
-      "status": "in_progress",
+      "id": "mcp-server",
+      "title": "Standalone Local MCP Server",
+      "status": "done",
       "acceptance": [
-        "Run checks, fix failures, and implement the next planned feature"
+        "pageindex-mcp console entry point works",
+        "stdio transport for MCP clients",
+        "Six tools: browse_documents, get_document, get_document_structure, get_page_content, index_document, remove_document",
+        "Management tools behind --management flag",
+        "Document storage with JSON persistence",
+        "Tests for tool listing, calling, error handling"
+      ],
+      "implementation": [
+        "pageindex/mcp_server.py",
+        "pageindex/agent_tools.py"
+      ],
+      "tests": [
+        "tests/test_mcp_server.py"
+      ]
+    },
+    {
+      "id": "incremental-indexing",
+      "title": "Incremental Index Updates for Large Documents",
+      "status": "planned",
+      "acceptance": [
+        "Detect changed sections between document versions",
+        "Rebuild only affected branches of the document tree",
+        "Recompute summaries only along impacted paths",
+        "Maintain document version history and change tracking"
+      ],
+      "implementation": [],
+      "tests": []
+    },
+    {
+      "id": "pydantic-validation",
+      "title": "Pydantic Validation for LLM JSON Outputs",
+      "status": "planned",
+      "acceptance": [
+        "Validate LLM responses against explicit Pydantic schemas",
+        "Detect malformed or incomplete responses early",
+        "Fail deterministically instead of silently"
+      ],
+      "implementation": [],
+      "tests": []
+    },
+    {
+      "id": "usage-measurement",
+      "title": "Per-Call Chat Usage and Measurement Completeness",
+      "status": "planned",
+      "acceptance": [
+        "Supported measurement surface shared by chat_completions, responses and messages",
+        "Preserve individual model-call records with call identity",
+        "Distinguish complete, partial and unknown measurements"
       ],
       "implementation": [],
       "tests": []
