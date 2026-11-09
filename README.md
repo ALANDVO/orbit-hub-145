@@ -17,6 +17,7 @@ PageIndex builds hierarchical document indexes from PDFs, enabling reasoning-bas
 - **Tree Building**: Convert flat TOC entries to hierarchical tree structure
 - **Leaf Node Operations**: Safe leaf node extraction (fixed Issue #330)
 - **MCP Server**: Standalone local MCP server for Claude Desktop, Cursor, and other MCP clients (implements Issue #540)
+- **Public API**: Complete Python API for programmatic document indexing and retrieval
 
 ## Installation
 
@@ -35,6 +36,29 @@ Or with development dependencies:
 
 ```bash
 ./venv/bin/python -m pytest tests/ -v
+```
+
+## Python API Usage
+
+```python
+from pageindex import (
+    page_index_main,      # Sync entry point for building index
+    page_index_builder,   # Async builder for integration
+    PageIndexOptions,     # Configuration options
+    detect_page_index,    # Detect TOC from PDF
+    tree_parser,          # Parse TOC entries to tree
+    list_to_tree,         # Build tree from flat entries
+    get_leaf_nodes,       # Extract leaf nodes from tree
+    format_structure,     # Format tree for display
+    is_leaf_node,         # Check if node is leaf
+    print_tree,           # Print tree to stdout
+    PageIndexLocalClient, # Local document client
+    PageIndexMCPServer,   # MCP server class
+)
+
+# Build index from PDF
+result = page_index_main("document.pdf")
+print(result["structure_text"])
 ```
 
 ## Running the MCP Server

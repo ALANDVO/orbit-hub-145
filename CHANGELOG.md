@@ -1,8 +1,19 @@
 # Changelog
 
+## 1.3.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
 ## 1.2.0 — work-in-progress checkpoint
 
 Partial code published for continued development. Known issues: STATUS.md.
+
+### Added (public-api)
+- Complete public API exports in `pageindex/__init__.py`
+  - Core indexing functions: `page_index_main`, `page_index_builder`, `PageIndexOptions`, `detect_page_index`, `tree_parser`
+  - Tree utilities: `list_to_tree`, `get_leaf_nodes`, `format_structure`, `is_leaf_node`, `print_tree`
+  - MCP components: `PageIndexLocalClient`, `PageIndexMCPServer`, `tool_names`, `mcp_main`
+- README updated with public API usage examples and import patterns
 
 ## 1.1.0 — work-in-progress checkpoint
 
