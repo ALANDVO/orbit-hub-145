@@ -2,6 +2,8 @@
 Utility functions for PageIndex tree operations.
 """
 import copy
+import json
+import hashlib
 from typing import List, Dict, Any, Optional
 
 
