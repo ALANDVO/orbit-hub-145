@@ -108,3 +108,108 @@ def test_format_structure():
     output = format_structure(tree)
     assert "Chapter 1" in output
     assert "Section 1.1" in output
+
+def test_detect_changed_sections_one_changed():
+    """Test detect_changed_sections identifies one changed section."""
+    from pageindex.incremental import detect_changed_sections
+    from pageindex.utils import get_leaf_nodes, list_to_tree
+    
+    flat_v1 = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1', 'page': 2},
+        {'structure': '2', 'title': 'Chapter 2', 'page': 10},
+    ]
+    tree_v1 = list_to_tree(flat_v1)
+    leaf_v1 = get_leaf_nodes(tree_v1)
+    
+    flat_v2 = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1 MODIFIED', 'page': 3},
+        {'structure': '2', 'title': 'Chapter 2', 'page': 10},
+    ]
+    tree_v2 = list_to_tree(flat_v2)
+    leaf_v2 = get_leaf_nodes(tree_v2)
+    
+    doc_v1 = {'leaf_nodes': leaf_v1}
+    doc_v2 = {'leaf_nodes': leaf_v2}
+    
+    changed = detect_changed_sections(doc_v1, doc_v2)
+    assert len(changed) == 2
+    titles = [n['title'] for n in changed]
+    assert 'Section 1.1' in titles
+    assert 'Section 1.1 MODIFIED' in titles
+
+
+def test_detect_changed_sections_no_changes():
+    """Test detect_changed_sections returns empty when no changes."""
+    from pageindex.incremental import detect_changed_sections
+    from pageindex.utils import get_leaf_nodes, list_to_tree
+    
+    flat = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1', 'page': 2},
+    ]
+    tree = list_to_tree(flat)
+    leaf_nodes = get_leaf_nodes(tree)
+    
+    doc1 = {'leaf_nodes': leaf_nodes}
+    doc2 = {'leaf_nodes': leaf_nodes}
+    
+    changed = detect_changed_sections(doc1, doc2)
+    assert len(changed) == 0
+
+
+def test_detect_changed_sections_added_section():
+    """Test detect_changed_sections detects added section."""
+    from pageindex.incremental import detect_changed_sections
+    from pageindex.utils import get_leaf_nodes, list_to_tree
+    
+    flat_v1 = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1', 'page': 2},
+    ]
+    tree_v1 = list_to_tree(flat_v1)
+    leaf_v1 = get_leaf_nodes(tree_v1)
+    
+    flat_v2 = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1', 'page': 2},
+        {'structure': '1.2', 'title': 'Section 1.2', 'page': 4},
+    ]
+    tree_v2 = list_to_tree(flat_v2)
+    leaf_v2 = get_leaf_nodes(tree_v2)
+    
+    doc_v1 = {'leaf_nodes': leaf_v1}
+    doc_v2 = {'leaf_nodes': leaf_v2}
+    
+    changed = detect_changed_sections(doc_v1, doc_v2)
+    assert len(changed) == 1
+    assert 'Section 1.2' in [n['title'] for n in changed]
+
+
+def test_detect_changed_sections_deleted_section():
+    """Test detect_changed_sections detects deleted section."""
+    from pageindex.incremental import detect_changed_sections
+    from pageindex.utils import get_leaf_nodes, list_to_tree
+    
+    flat_v1 = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1', 'page': 2},
+        {'structure': '1.2', 'title': 'Section 1.2', 'page': 4},
+    ]
+    tree_v1 = list_to_tree(flat_v1)
+    leaf_v1 = get_leaf_nodes(tree_v1)
+    
+    flat_v2 = [
+        {'structure': '1', 'title': 'Chapter 1', 'page': 1},
+        {'structure': '1.1', 'title': 'Section 1.1', 'page': 2},
+    ]
+    tree_v2 = list_to_tree(flat_v2)
+    leaf_v2 = get_leaf_nodes(tree_v2)
+    
+    doc_v1 = {'leaf_nodes': leaf_v1}
+    doc_v2 = {'leaf_nodes': leaf_v2}
+    
+    changed = detect_changed_sections(doc_v1, doc_v2)
+    assert len(changed) == 1
+    assert 'Section 1.2' in [n['title'] for n in changed]
