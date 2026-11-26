@@ -25,15 +25,19 @@
     {
       "id": "incremental-indexing",
       "title": "Incremental Index Updates for Large Documents",
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": [
         "Detect changed sections between document versions",
         "Rebuild only affected branches of the document tree",
         "Recompute summaries only along impacted paths",
         "Maintain document version history and change tracking"
       ],
-      "implementation": [],
-      "tests": []
+      "implementation": [
+        "pageindex/incremental.py"
+      ],
+      "tests": [
+        "tests/test_utils.py::test_detect_changed_sections_*"
+      ]
     },
     {
       "id": "pydantic-validation",

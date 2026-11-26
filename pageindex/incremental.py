@@ -6,7 +6,7 @@ and compute node hashes for efficient comparison.
 """
 import json
 import hashlib
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 
 def compute_node_hash(node: Dict[str, Any]) -> str:
@@ -52,3 +52,27 @@ def detect_changed_sections(old_doc: Dict[str, Any], new_doc: Dict[str, Any]) ->
             changed.append(node)
 
     return changed
+
+
+def get_changed_structure_paths(changed_nodes: List[Dict[str, Any]]) -> List[str]:
+    """Extract structure paths from changed leaf nodes.
+
+    Given a list of changed leaf nodes (as returned by
+    :func:`detect_changed_sections`), returns a list of structure
+    path strings (e.g., '1.1', '2') that were changed.
+
+    This supports incremental rebuilding by identifying exactly which
+    branches of the document tree need updating.
+
+    Args:
+        changed_nodes: List of changed leaf node dictionaries.
+
+    Returns:
+        List of structure path strings.
+    """
+    paths = []
+    for node in changed_nodes:
+        structure = node.get('structure')
+        if structure:
+            paths.append(structure)
+    return paths

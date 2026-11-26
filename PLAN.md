@@ -26,13 +26,17 @@ Tests: `tests/test_mcp_server.py`
 
 ### incremental-indexing — Incremental Index Updates for Large Documents
 
-Status: planned
+Status: in_progress
 
 Acceptance:
 - Detect changed sections between document versions
 - Rebuild only affected branches of the document tree
 - Recompute summaries only along impacted paths
 - Maintain document version history and change tracking
+
+Implementation: `pageindex/incremental.py`
+
+Tests: `tests/test_utils.py::test_detect_changed_sections_*`
 
 ### pydantic-validation — Pydantic Validation for LLM JSON Outputs
 
